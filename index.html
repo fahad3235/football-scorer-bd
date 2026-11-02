@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Football Scorer BD</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <h1 id="appTitle" data-i18n="title">Football Scorer BD</h1>
+  <button id="langBtn" type="button">&#2476;&#2494;&#2434;&#2482;&#2494;</button>
+</header>
+<p class="tagline" data-i18n="tagline">Live football scoreboard for local matches &#8212; goals, cards, clock and shootouts.</p>
+<nav class="tabs" aria-label="Sections">
+  <button id="tabBtn-match" type="button" class="active" data-i18n="tabMatch">Match</button>
+  <button id="tabBtn-history" type="button" data-i18n="tabHistory">History</button>
+</nav>
+
+<main id="tab-match">
+  <section id="setupView" class="card">
+    <h2 data-i18n="setupTitle">Match setup</h2>
+    <form id="setupForm" novalidate>
+      <label><span data-i18n="teamA">Team A name</span>
+        <input id="teamAInput" type="text" maxlength="40" placeholder="Mohammedan" required></label>
+      <label><span data-i18n="teamB">Team B name</span>
+        <input id="teamBInput" type="text" maxlength="40" placeholder="Abahani" required></label>
+      <label><span data-i18n="halfLength">Half length (minutes)</span>
+        <input id="halfInput" type="number" min="1" max="60" step="1" value="45" required></label>
+      <p id="setupError" class="error" role="alert"></p>
+      <button id="startMatchBtn" type="submit" data-i18n="startMatch">Start match</button>
+    </form>
+  </section>
+
+  <section id="liveView" class="card hidden">
+    <h2 data-i18n="liveTitle">Live match</h2>
+    <div class="scoreboard" aria-live="polite">
+      <div class="team"><span id="teamAName"></span><strong id="scoreA">0</strong></div>
+      <div class="mid"><span id="clock">00:00</span><span id="period"></span></div>
+      <div class="team"><span id="teamBName"></span><strong id="scoreB">0</strong></div>
+    </div>
+    <p id="cardsLine" class="cards"></p>
+    <p id="resultBanner" class="banner hidden"></p>
+    <div class="pad">
+      <input id="scorerInput" type="text" maxlength="40" data-i18n-ph="scorerName" placeholder="Scorer name (optional)">
+      <button id="goalABtn" type="button" data-i18n="goalA">Goal &#8212; Team A</button>
+      <button id="goalBBtn" type="button" data-i18n="goalB">Goal &#8212; Team B</button>
+      <button id="yellowABtn" type="button" data-i18n="yellowA">Yellow &#8212; A</button>
+      <button id="yellowBBtn" type="button" data-i18n="yellowB">Yellow &#8212; B</button>
+      <button id="redABtn" type="button" data-i18n="redA">Red &#8212; A</button>
+      <button id="redBBtn" type="button" data-i18n="redB">Red &#8212; B</button>
+    </div>
+    <div class="controls">
+      <button id="clockBtn" type="button" data-i18n="startClock">Start clock</button>
+      <button id="nextPhaseBtn" type="button" data-i18n="nextPhase">Next phase</button>
+      <button id="undoBtn" type="button" data-i18n="undo">Undo last event</button>
+      <button id="endMatchBtn" type="button" data-i18n="endMatch">End match</button>
+      <button id="newMatchBtn" type="button" data-i18n="newMatch">New match</button>
+      <button id="saveHistoryBtn" type="button" data-i18n="historyTitle">History</button>
+    </div>
+    <p id="feedback" class="note" role="status"></p>
+    <section id="shootoutView" class="hidden">
+      <h3 data-i18n="shootoutTitle">Penalty shootout</h3>
+      <p><span data-i18n="shootoutNote">Shootout decides a drawn knockout match.</span></p>
+      <p>Shootout: <strong id="shootoutScore">0 - 0</strong> &#183; <span id="shootoutTurn"></span></p>
+      <button id="penScoredBtn" type="button" data-i18n="scored">Scored</button>
+      <button id="penMissedBtn" type="button" data-i18n="missed">Missed</button>
+    </section>
+    <h3 data-i18n="eventsTitle">Match events</h3>
+    <ul id="eventsList"></ul>
+  </section>
+</main>
+
+<main id="tab-history" class="hidden">
+  <section class="card">
+    <h2 data-i18n="historyTitle">Finished matches</h2>
+    <div id="historyList"></div>
+    <div class="controls">
+      <button id="exportBtn" type="button" data-i18n="exportBtn">Export JSON</button>
+      <label class="filelabel"><span data-i18n="importBtn">Import JSON</span>
+        <input id="importFile" type="file" accept="application/json"></label>
+    </div>
+    <div class="controls">
+      <input id="eraseInput" type="text" placeholder="DELETE">
+      <button id="eraseBtn" type="button" data-i18n="eraseBtn">Erase all (type DELETE)</button>
+    </div>
+    <p id="historyFeedback" class="error" role="alert"></p>
+  </section>
+</main>
+
+<footer><p data-i18n="footer">Offline scorekeeper for casual matches. Not affiliated with any federation; not a tournament-certified record.</p></footer>
+<script src="js/i18n.js"></script>
+<script src="js/logic.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
